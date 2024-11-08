@@ -1,42 +1,63 @@
 package com.dicoding.asclepius.view
 
-import android.Manifest
-import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.dicoding.asclepius.R
 import com.dicoding.asclepius.databinding.ActivityMainBinding
+import com.dicoding.asclepius.fragment.HistoryFragment
+import com.dicoding.asclepius.fragment.HomeFragment
+import com.dicoding.asclepius.fragment.NewsFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var bottomNavBar: BottomNavigationView
 
     private var currentImageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // setip bottom navigation bar
+        bottomNavBar = binding.bottomNavigation
+        bottomNavBar.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.bottom_menu_home -> {
+                    setupBottomNavBar(HomeFragment())
+                    true
+                }
+                R.id.bottom_menu_news -> {
+                    setupBottomNavBar(NewsFragment())
+                    true
+                }
+                R.id.bottom_menu_history -> {
+                    setupBottomNavBar(HistoryFragment())
+                    true
+                }
+                else -> false
+            }
+        }
+        // set default fragment
+        setupBottomNavBar(HomeFragment())
     }
 
-    private fun startGallery() {
-        // TODO: Mendapatkan gambar dari Gallery.
+    private fun setupBottomNavBar(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit()
     }
 
-    private fun showImage() {
-        // TODO: Menampilkan gambar sesuai Gallery yang dipilih.
+    override fun onBackPressed() {
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+        if (currentFragment !is HomeFragment) {
+            // If not in HomeFragment, navigate to HomeFragment
+            bottomNavBar.selectedItemId = R.id.bottom_menu_home
+        } else {
+            // If already in HomeFragment, exit the app
+            super.onBackPressed()
+        }
     }
 
-    private fun analyzeImage() {
-        // TODO: Menganalisa gambar yang berhasil ditampilkan.
-    }
-
-    private fun moveToResult() {
-        val intent = Intent(this, ResultActivity::class.java)
-        startActivity(intent)
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
 }

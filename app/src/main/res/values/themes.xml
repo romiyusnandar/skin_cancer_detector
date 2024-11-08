@@ -2,8 +2,17 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Asclepius" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+         <item name="colorPrimary">@color/primary</item>
+        <item name="colorSecondary">@color/secondary</item>
+
     </style>
 
     <style name="Theme.Asclepius" parent="Base.Theme.Asclepius" />
+
+    <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="itemIconTint">#FFFFFF</item>
+        <item name="android:color">?attr/colorSecondary</item>
+        <item name="android:alpha">1.0</item>
+    </style>
+
 </resources>
