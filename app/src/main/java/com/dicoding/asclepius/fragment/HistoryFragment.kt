@@ -6,11 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.dicoding.asclepius.R
 import com.dicoding.asclepius.adapter.HistoryAdapter
 import com.dicoding.asclepius.databinding.FragmentHistoryBinding
 import com.dicoding.asclepius.local.LocalResponse

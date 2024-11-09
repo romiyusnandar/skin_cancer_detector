@@ -85,16 +85,32 @@ class HomeFragment : Fragment() {
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == UCrop.REQUEST_CROP && resultCode == AppCompatActivity.RESULT_OK) {
-            val resultUri = UCrop.getOutput(data!!)
-            resultUri?.let {
-                showCroppedImage(resultUri)
-            } ?: showToast(getString(R.string.error_crop_image))
-        } else if (resultCode == UCrop.RESULT_ERROR) {
-            val cropError = UCrop.getError(data!!)
-            showToast("Crop error: ${cropError?.message}")
+        if (requestCode == UCrop.REQUEST_CROP) {
+            when (resultCode) {
+                AppCompatActivity.RESULT_OK -> {
+                    val resultUri = UCrop.getOutput(data!!)
+                    resultUri?.let {
+                        showCroppedImage(resultUri)
+                    } ?: showToast(getString(R.string.error_crop_image))
+                }
+                UCrop.RESULT_ERROR -> {
+                    val cropError = UCrop.getError(data!!)
+                    showToast("Crop error: ${cropError?.message}")
+                    resetImageSelection()
+                }
+                AppCompatActivity.RESULT_CANCELED -> {
+                    resetImageSelection()
+                }
+            }
         }
     }
+
+    private fun resetImageSelection() {
+        currentImageUri = null
+        croppedImageUri = null
+        binding.previewImageView.setImageResource(R.drawable.ic_place_holder)
+    }
+
     private fun showImage() {
         currentImageUri?.let {
             binding.previewImageView.setImageURI(it)
@@ -124,6 +140,7 @@ class HomeFragment : Fragment() {
     private fun showCroppedImage(uri: Uri) {
         binding.previewImageView.setImageURI(uri)
         croppedImageUri = uri
+        currentImageUri = uri
     }
 
 

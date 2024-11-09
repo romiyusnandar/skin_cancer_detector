@@ -5,7 +5,7 @@
     <string name="gallery">Galeri</string>
     <string name="analyze">Analisis</string>
     <string name="result">Hasil Analisis</string>
-    <string name="home_navbar">Beranda</string>
+    <string name="analysis_navbar">Analisa</string>
     <string name="news_navbar">Berita</string>
     <string name="history_navbar">Histori</string>
     <string name="choose_image">Pilih gambar</string>

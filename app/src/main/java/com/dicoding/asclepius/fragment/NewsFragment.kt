@@ -1,16 +1,12 @@
 package com.dicoding.asclepius.fragment
 
-import android.content.Intent
-import android.net.Uri
 import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dicoding.asclepius.R
 import com.dicoding.asclepius.adapter.NewsAdapter
 import com.dicoding.asclepius.databinding.FragmentNewsBinding
 import com.dicoding.asclepius.utils.ViewModelFactory
@@ -62,15 +58,6 @@ class NewsFragment : Fragment() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
-
-    fun openNewsUrl(view: View) {
-        val url = view.getTag(R.id.tvLink) as? String
-        url?.let {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse(url)
-            startActivity(intent)
-        }
     }
 
     override fun onDestroyView() {

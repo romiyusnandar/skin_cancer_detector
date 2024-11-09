@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // setip bottom navigation bar
         bottomNavBar = binding.bottomNavigation
         bottomNavBar.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {

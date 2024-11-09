@@ -9,10 +9,6 @@ class ResultRepository(private val dao: AppDAO) {
         return dao.getAll()
     }
 
-    fun getById(id: Int): LiveData<LocalResponse> {
-        return dao.getClassificationResultById(id)
-    }
-
     suspend fun insert(classificationResult: LocalResponse) {
         dao.insert(classificationResult)
     }

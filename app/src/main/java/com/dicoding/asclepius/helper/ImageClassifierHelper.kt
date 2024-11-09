@@ -47,7 +47,7 @@ class ImageClassifierHelper(
                 optionsBuilder.build()
             )
         } catch (e: IllegalStateException) {
-            classifierListener?.onError("Image classifier failed to initialize.")
+            classifierListener?.onError("Inisiasi classifier gagal")
             Log.e(TAG, "TFLite failed to load model: ${e.message}")
         }
     }
@@ -82,5 +82,4 @@ class ImageClassifierHelper(
         fun onError(error: String)
         fun onResults(results: List<Classifications>?, inferenceTime: Long)
     }
-
 }
