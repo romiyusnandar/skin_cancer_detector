@@ -4,12 +4,16 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.asclepius.di.Injection
+import com.dicoding.asclepius.repository.NewsRepository
 import com.dicoding.asclepius.repository.ResultRepository
 import com.dicoding.asclepius.viewmodel.HistoryViewModel
 import com.dicoding.asclepius.viewmodel.NewsViewModel
 import com.dicoding.asclepius.viewmodel.ResultViewModel
 
-class ViewModelFactory private constructor(private val repository: ResultRepository, ) :
+class ViewModelFactory private constructor(
+    private val resultRepository: ResultRepository,
+    private val newsRepository: NewsRepository
+    ) :
     ViewModelProvider.Factory {
     companion object {
         @Volatile
@@ -17,21 +21,26 @@ class ViewModelFactory private constructor(private val repository: ResultReposit
 
         fun getInstance(context: Context): ViewModelFactory =
             instance ?: synchronized(this) {
-                instance ?: ViewModelFactory(Injection.provideRepository(context))
+                instance ?: ViewModelFactory(
+                    Injection.provideResultRepository(context),
+                    Injection.provideNewsRepository(context)
+                ).also { instance = it }
             }
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(HistoryViewModel::class.java)) {
-            return HistoryViewModel() as T
-        } else if (modelClass.isAssignableFrom(ResultViewModel::class.java)) {
-            return ResultViewModel(repository) as T
-        } else if (modelClass.isAssignableFrom(NewsViewModel::class.java)) {
-            return NewsViewModel() as T
+        return when {
+            modelClass.isAssignableFrom(HistoryViewModel::class.java) -> {
+                HistoryViewModel() as T
+            }
+            modelClass.isAssignableFrom(ResultViewModel::class.java) -> {
+                ResultViewModel(resultRepository) as T
+            }
+            modelClass.isAssignableFrom(NewsViewModel::class.java) -> {
+                NewsViewModel(newsRepository) as T
+            }
+            else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
-
-        throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
-}
-
-
+    }
 }
