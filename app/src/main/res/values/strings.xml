@@ -3,9 +3,19 @@
     <string name="camera_x">CameraX</string>
     <string name="camera">Kamera</string>
     <string name="gallery">Galeri</string>
-    <string name="analyze">Analyze</string>
+    <string name="analyze">Analisis</string>
     <string name="result">Hasil Analisis</string>
     <string name="home_navbar">Beranda</string>
     <string name="news_navbar">Berita</string>
     <string name="history_navbar">Histori</string>
+    <string name="choose_image">Pilih gambar</string>
+    <string name="please_select_image">Silahkan pilih gambar terlebih dahulu</string>
+    <string name="error_select_image">Gagal menambahkan gambar</string>
+    <string name="error_crop_image">Gagal memangkas gambar</string>
+    <string name="image_classifier_failed">Analisis agagl, silahkan coba lagi</string>
+    <string name="no_results_found">Hasil tidak ditemukan</string>
+    <string name="save">Simpan</string>
+    <string name="back">Kembali</string>
+    <string name="delete">Hapus</string>
+    <string name="analyze_result">Hasil analisis</string>
 </resources>

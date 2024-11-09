@@ -1,6 +1,5 @@
 package com.dicoding.asclepius.view
 
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,8 +13,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var bottomNavBar: BottomNavigationView
-
-    private var currentImageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,10 +49,8 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
         if (currentFragment !is HomeFragment) {
-            // If not in HomeFragment, navigate to HomeFragment
             bottomNavBar.selectedItemId = R.id.bottom_menu_home
         } else {
-            // If already in HomeFragment, exit the app
             super.onBackPressed()
         }
     }
