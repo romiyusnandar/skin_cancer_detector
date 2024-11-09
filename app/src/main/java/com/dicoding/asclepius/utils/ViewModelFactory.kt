@@ -32,7 +32,7 @@ class ViewModelFactory private constructor(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(HistoryViewModel::class.java) -> {
-                HistoryViewModel() as T
+                HistoryViewModel(resultRepository) as T
             }
             modelClass.isAssignableFrom(ResultViewModel::class.java) -> {
                 ResultViewModel(resultRepository) as T

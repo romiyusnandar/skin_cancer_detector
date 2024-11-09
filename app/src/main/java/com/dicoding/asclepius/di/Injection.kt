@@ -14,8 +14,6 @@ object Injection {
     }
 
     fun provideNewsRepository(context: Context): NewsRepository {
-        // Saat ini, NewsRepository tidak memerlukan parameter tambahan
-        // Namun, kita tetap menyertakan context untuk konsistensi dan kemungkinan penggunaan di masa depan
         return NewsRepository()
     }
 }
